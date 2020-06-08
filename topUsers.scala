@@ -1,0 +1,7 @@
+val lines = sc.textFile("twitter.edges")
+val users = lines.flatMap(line => line.split(" ")(1).split(","))
+val userMap = users.map(user => (user, 1))
+val wordCounts = userMap.reduceByKey((a,b) => a+b)
+val filterCounts = wordCounts.filter( _._2 > 1000)
+filterCounts.saveAsTextFile("output")
+System.exit(0)
